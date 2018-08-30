@@ -10,7 +10,7 @@ import "./TableTop.css";
 
 const CustomTableCell = withStyles(theme => ({
   head: {
-    fontSize: 14
+    fontSize: 11
   }
 }))(TableCell);
 
