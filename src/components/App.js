@@ -1,16 +1,52 @@
-import React, { Component } from "react";
-import Table from "@material-ui/core/Table";
+import React, { Component, Fragment } from "react";
 import SearchBar from "./SearchBar";
 import { ClipLoader } from "react-spinners";
 import "./App.css";
+import { withStyles } from '@material-ui/core/styles';
 import { DB_CONFIG } from "../db/config";
 import firebase from "firebase";
+import RankTable from "./RankTable";
+import TitleBar from "./TitleBar";
 
-import TableContent from "./TableContent";
-import TableTop from "./TableTop";
-import Title from "./Title";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+
+
+const styles = theme => ({
+
+
+
+  progress: {
+    margin: theme.spacing.unit *10,
+    alignItems:'center',
+  },
+
+
+  bgLoading:{
+    // backgroundColor:'red',
+    position: 'absolute',  
+    top: '30%',
+    left: '40%',
+    zIndex: 100,
+    flexDirection:'column',
+
+  },
+
+  textPosition:{
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    fontSize:'1.4em',
+  }
+
+});
+
+
+
 
 class App extends Component {
+  
+  
   state = {
     order: "desc",
     orderBy: "score",
@@ -85,9 +121,7 @@ class App extends Component {
             time: data.val().Update
           };
           todos.push(todo);
-          console.log("todos.length :" + todos.length);
         });
-
         this.setState({ data: todos });
       },
       error => {
@@ -97,44 +131,51 @@ class App extends Component {
   }
 
   render() {
+
     const { data, order, orderBy, filterText } = this.state;
+    const {classes} = this.props;
 
-    if (data.length === 0) {
+    if (data.length === 0) { 
       return (
-        <div className="centerPosition">
-          <ClipLoader loading={this.state.loading} /> <span>Loading...</span>
-        </div>
+          <div className={classes.bgLoading}>
+              <CircularProgress className={classes.progress} size={90} thickness={2}/>
+              <br/>
+              <span className={classes.textPosition}>잠시만 기다려 주시기 바랍니다.</span>
+          </div>
       );
-    } else {
+
+    } else { 
       return (
+
+
+      
         <div className="center">
-          <Title />
-
-          <SearchBar
-            filterText={this.state.filterText}
-            onFilterTextChange={this.handleFilterTextChange}
-          />
-
-          <Table>
-            <TableTop
+            <TitleBar 
+            data={data}
+            />
+            <SearchBar
+              filterText={this.state.filterText}
+              onFilterTextChange={this.handleFilterTextChange}
+            />
+            <RankTable
               order={order}
               orderBy={orderBy}
               onRequestSort={this.handleRequestSort}
-            />
-
-            <TableContent
               data={data}
-              order={order}
-              orderBy={orderBy}
               filterText={filterText}
               onHandleClick={this.handleClick}
               stringSort={this.getSorting}
               isselected={this.isSelected}
             />
-          </Table>
         </div>
+
+
+
+
+
+        
       );
     }
   }
-}
-export default App;
+} 
+export default withStyles(styles)(App);
