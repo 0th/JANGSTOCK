@@ -1,59 +1,47 @@
 import React, { Component, Fragment } from "react";
-import SearchBar from "./SearchBar";
-import { ClipLoader } from "react-spinners";
+import SearchBar from "./SearchFAN";
 import "./App.css";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
 import { DB_CONFIG } from "../db/config";
 import firebase from "firebase";
-import RankTable from "./RankTable";
-import TitleBar from "./TitleBar";
+import TitleBar from "./TitleFAN";
+import Tabs from "./TabFAN";
+import RankTable from "./TableFAN";
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = theme => ({
-
-
-
   progress: {
-    margin: theme.spacing.unit *10,
-    alignItems:'center',
+    margin: theme.spacing.unit * 10,
+    alignItems: "center"
   },
 
-
-  bgLoading:{
+  bgLoading: {
     // backgroundColor:'red',
-    position: 'absolute',  
-    top: '30%',
-    left: '40%',
+    position: "absolute",
+    top: "30%",
+    left: "40%",
     zIndex: 100,
-    flexDirection:'column',
-
+    flexDirection: "column"
   },
 
-  textPosition:{
-    display:'flex',
-    justifyContent:'center',
-    alignItems:'center',
-    fontSize:'1.4em',
+  textPosition: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "1.4em"
   }
-
 });
 
-
-
-
 class App extends Component {
-  
-  
   state = {
     order: "desc",
     orderBy: "score",
     loading: true,
     data: [],
     selected: [],
-    filterText: ""
+    filterText: "",
+    value: 0
   };
 
   getSorting(order, orderBy) {
@@ -101,6 +89,10 @@ class App extends Component {
     this.setState({ order, orderBy });
   };
 
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
   componentDidMount() {
     this.app = firebase.initializeApp(DB_CONFIG);
     const rootRef = this.app
@@ -131,51 +123,63 @@ class App extends Component {
   }
 
   render() {
+    const { data, order, orderBy, filterText, value } = this.state;
+    const { classes } = this.props;
 
-    const { data, order, orderBy, filterText } = this.state;
-    const {classes} = this.props;
-
-    if (data.length === 0) { 
+    if (data.length === 0) {
       return (
-          <div className={classes.bgLoading}>
-              <CircularProgress className={classes.progress} size={90} thickness={2}/>
-              <br/>
-              <span className={classes.textPosition}>잠시만 기다려 주시기 바랍니다.</span>
-          </div>
-      );
-
-    } else { 
-      return (
-
-
-      
-        <div className="center">
-            <TitleBar 
-            data={data}
-            />
-            <SearchBar
-              filterText={this.state.filterText}
-              onFilterTextChange={this.handleFilterTextChange}
-            />
-            <RankTable
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={this.handleRequestSort}
-              data={data}
-              filterText={filterText}
-              onHandleClick={this.handleClick}
-              stringSort={this.getSorting}
-              isselected={this.isSelected}
-            />
+        <div className={classes.bgLoading}>
+          <CircularProgress
+            className={classes.progress}
+            size={90}
+            thickness={2}
+          />
+          <br />
+          <span className={classes.textPosition}>
+            잠시만 기다려 주시기 바랍니다.
+          </span>
         </div>
+      );
+    } else {
+      return (
+        <div className="body_contents">
+          <TitleBar data={data} />
+          <SearchBar
+            filterText={this.state.filterText}
+            onFilterTextChange={this.handleFilterTextChange}
+          />
 
+          <Tabs
+            value={value}
+            onHandleChange={this.handleChange}
+            
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={this.handleRequestSort}
+            data={data}
+            filterText={filterText}
+            onHandleClick={this.handleClick}
+            stringSort={this.getSorting}
+            isselected={this.isSelected}
+            selectedCheckbox={this.selected}
+            onHandleChecked={this.handleChecked}
+          />
 
-
-
-
-        
+          <RankTable
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={this.handleRequestSort}
+            data={data}
+            filterText={filterText}
+            onHandleClick={this.handleClick}
+            stringSort={this.getSorting}
+            isselected={this.isSelected}
+            selectedCheckbox={this.selected}
+            onHandleChecked={this.handleChecked}
+          />
+        </div>
       );
     }
   }
-} 
+}
 export default withStyles(styles)(App);

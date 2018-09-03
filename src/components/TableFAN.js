@@ -10,18 +10,36 @@ import TableBody from "@material-ui/core/TableBody";
 import Checkbox from "@material-ui/core/Checkbox";
 
 
+const CustomTableCell = withStyles(theme => ({
+  head: {
+    // backgroundColor: '#2d74de',
+    color: theme.palette.common.black,
+    fontSize: 13,
+
+  },
+  // body: {
+  //   fontSize: 20,
+  // },
+}))(TableCell);
+
+
 const styles = theme => ({
   root: {
-    width: "100%",
-    marginTop: theme.spacing.unit * 1,
-    overflowX: "auto"
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
   },
   row: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.background.default
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.background.default,
     },
-  }
+  },
 });
+
+
 
 const columnData = [
   { id: "name", label: "종목명" },
@@ -29,23 +47,10 @@ const columnData = [
   { id: "score", label: "점수" }
 ];
 
-const columnStyle1 = [
-  { backgroundColor: "red",padding:100},
-  { backgroundColor: "yellow"  },
-  { backgroundColor: "red" },
-  { backgroundColor: "red"}
-];
-
-
-const columnStyle2 = [
-  { backgroundColor: "yellow",padding:20 },
-  { backgroundColor: "red",width:12 },
-  { backgroundColor: "yellow",width:12 }
-];
-
 
 
 class TableTop extends React.Component {
+
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };
@@ -53,24 +58,37 @@ class TableTop extends React.Component {
   render() {
 
     const { data, order, orderBy,  filterText } = this.props;
-
-
     const sorting = this.props.stringSort;
     const isselected = this.props.isselected;
     const onhandleClick = this.props.onHandleClick;
-    let num = 0;
 
     return (
-      <Table style={{ width: '100%' }}>
-        <TableHead>
-          <TableRow>
-            <TableCell style={columnStyle1[0]} />
-            <TableCell style={columnStyle1[1]}>번호</TableCell>
-            <TableCell style={columnStyle1[2]}/>
+      <Table style={{width:'800px'}} >
+
+        <colgroup>
+
+          <col style={{width:'2.5%'}}/>
+          <col style={{width:'15%'}}/>
+          <col style={{width:'2.5%'}}/>
+          <col style={{width:'30%'}}/>
+          <col style={{width:'20%'}}/>
+          <col style={{width:'20%'}}/>
+          <col style={{width:'10%'}}/>
+
+        </colgroup>
+
+        <TableHead >
+
+          <TableRow >
+          
+            <CustomTableCell/>
+            <CustomTableCell>순위</CustomTableCell>
+            <CustomTableCell/>
+
             {columnData.map((column,index) => {
               
               return (
-                <TableCell style={columnStyle2[index]}
+                <CustomTableCell
                   key={column.id}
                   sortDirection={orderBy === column.id ? order : false}
                   // {num=num+1}
@@ -82,17 +100,20 @@ class TableTop extends React.Component {
                   >
                     {column.label}
                   </TableSortLabel>
-                </TableCell>
+                </CustomTableCell>
               );
             }, this)}
 
-            <TableCell>상태</TableCell>
+            <CustomTableCell>투자</CustomTableCell>
 
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {data.sort(sorting(order, orderBy)).map((product, index) => {
+          {data
+            .sort(sorting(order, orderBy))
+            .slice(0,20)
+            .map((product, index) => {
             // indexOf가 -1이라는것은, 문자열이 존재하지 않는다.
             if (product.name.indexOf(filterText) === -1) {
               return;
@@ -118,7 +139,7 @@ class TableTop extends React.Component {
                   <br />
                   {product.code}
                 </TableCell>
-                <TableCell>{product.price}</TableCell>
+              <TableCell>{Number(product.price).toLocaleString('en')}</TableCell>
                 <TableCell>{product.score}</TableCell>
                 <TableCell>
                   {product.status === "good"

@@ -1,21 +1,20 @@
 body{
   background-color:#f9f9f9;
+ 
 }
-
 
 .App {
   text-align: center;
 }
 
-.center {
-  width: 700px;
-  margin: 0 auto; 
-  align-content: center;
+.body_contents {
   background-color:white;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 1000px;
+  left: 25%;
+  position: absolute; 
+  zIndex: 100;
 } 
-
-.tablewidth {
-  width: 600px;
-  border: 1px solid red;
-}
