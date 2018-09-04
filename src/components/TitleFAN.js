@@ -38,10 +38,10 @@ class TitleBar extends Component {
 
     const { data } = this.props; 
     return (
-      <span className="titlebar">
-        ZUFAN
-        
-      </span>
+      <div className="titlebar">
+        <h1>ZUFAN</h1>
+        <h6>업데이트: {data[0].time}</h6>
+      </div>
     );
   }
 }

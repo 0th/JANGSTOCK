@@ -77,28 +77,28 @@ class TabFAN extends Component {
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label={<span style={{fontSize:'16px'}}>전체</span>}
+            label={<span style={{fontSize:'16px', fontWeight:'bold'}}>전체</span>}
           />
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label={<span style={{fontSize:'16px'}}>코스피</span>}
+            label={<span style={{fontSize:'16px', fontWeight:'bold'}}>코스피</span>}
           />
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label={<span style={{fontSize:'16px'}}>코스닥</span>}
+            label={<span style={{fontSize:'16px', fontWeight:'bold'}}>코스닥</span>}
           />
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label={<span style={{fontSize:'16px'}}>ETF</span>}
+            label={<span style={{fontSize:'16px', fontWeight:'bold'}}>ETF</span>}
           />
 
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label={<span style={{fontSize:'16px'}}>ETN</span>}
+            label={<span style={{fontSize:'16px', fontWeight:'bold'}}>ETN</span>}
           />
         </Tabs>
 

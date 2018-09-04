@@ -13,11 +13,11 @@ const CustomTableCell = withStyles(theme => ({
   head: {
     // backgroundColor: '#2d74de',
     // color: theme.palette.common.black,
-    fontSize: 14, 
+    fontSize: 16, 
     paddingLeft:30,
   },
   body: {
-    fontSize: 14,
+    fontSize: 16,
     paddingLeft:30,
     color: '#848484',
     paddingTop:5,
@@ -58,8 +58,8 @@ class TableTop extends React.Component {
         <colgroup>
           <col style={{width:'10%'}}/>
           <col style={{width:'10%'}}/>
-          <col style={{width:'41%'}}/>
-          <col style={{width:'13%'}}/>
+          <col style={{width:'40%'}}/>
+          <col style={{width:'14%'}}/>
           <col style={{width:'16%'}}/>
           <col style={{width:'10%'}}/>
       </colgroup>
@@ -120,7 +120,7 @@ class TableTop extends React.Component {
                 <CustomTableCell padding="none" style={{fontSize:'15px'}}>{index + 1}</CustomTableCell>
                 <CustomTableCell padding="none">-</CustomTableCell>
                 <CustomTableCell padding="none">
-                <a href={'https://finance.naver.com/item/main.nhn?code='+product.code} style={{color:'black', textDecoration:'none'}}>{product.name}</a>
+                <a href={'https://finance.naver.com/item/main.nhn?code='+product.code} style={{color:'#848484', textDecoration:'none'}}>{product.name}</a>
                    <br />
                   
                   <span style={{color:'#A4A4A4'}}>{product.code} </span>

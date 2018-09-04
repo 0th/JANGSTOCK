@@ -144,12 +144,18 @@ class App extends Component {
         <div className="contents">
           <div className="contents_top">
             <TitleBar data={data} />
-
+          
             <SearchBar
-              filterText={this.state.filterText}
-              onFilterTextChange={this.handleFilterTextChange}
+            filterText = {
+              this.state.filterText
+            }
+            onFilterTextChange = {
+              this.handleFilterTextChange
+            }
             />
+          
           </div>
+    
 
           <Tabs
             value={value}

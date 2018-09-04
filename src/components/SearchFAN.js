@@ -13,13 +13,9 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="searchbar">
-        <TextField
-        
-          style={{ width: "200px" }}
+        <TextField style={{width:"100%"}}
           label={
-            <span
-              style={{ fontSize: "16px", color: "#D8D8D8", padding: "5px" }}
-            >
+            <span style={{ fontWeight:'normal',color:'white', fontSize: "16px" }}>
               종목명 / 코드 검색
             </span>
           }
@@ -27,8 +23,9 @@ class SearchBar extends Component {
           onChange={this.handleFilterTextChange}
           
           InputProps={{
+            fullWidth:true,
             disableUnderline: true,
-            multiline:false
+            // multiline:false
           }}
         />
       </div>
