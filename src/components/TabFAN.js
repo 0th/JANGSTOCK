@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
+import "./App.css";
 
 import { withStyles } from "@material-ui/core/styles";
+import RankTable from "./TableFAN";
 
 const styles = theme => ({
+ 
   tabsRoot: {
     borderBottom: "1px solid #e8e8e8"
   },
@@ -20,16 +23,8 @@ const styles = theme => ({
     fontWeight: theme.typography.fontWeightRegular,
     marginRight: theme.spacing.unit * 4,
     fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
       '"Helvetica Neue"',
       "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"'
     ].join(","),
     "&:hover": {
       color: "#40a9ff",
@@ -46,18 +41,32 @@ const styles = theme => ({
   tabSelected: {},
 
   typography: {
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing.unit * 5
   }
 });
 
 class TabFAN extends Component {
   render() {
-    const { classes, value } = this.props;
+    const {
+      classes,
+      value,
+      order,
+      orderBy,
+      data,
+      filterText,
+      selectedCheckbox
+    } = this.props;
+    const onRequestSort = this.props.onRequestSort;
+    const stringSort = this.props.stringSort;
+    const isselected = this.props.isselected;
     const handlechange = this.props.onHandleChange;
+    const onHandleChecked = this.props.onHandleChecked;
+    const onHandleClick = this.props.onHandleClick;
 
     return (
       <div>
-        <Tabs
+
+        <Tabs style={{width:'100%'}} 
           value={value}
           onChange={handlechange}
           classes={{
@@ -68,48 +77,65 @@ class TabFAN extends Component {
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label="KOSPI"
+            label={<span style={{fontSize:'16px'}}>전체</span>}
           />
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label="KOSDAQ"
+            label={<span style={{fontSize:'16px'}}>코스피</span>}
           />
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label="ETF"
+            label={<span style={{fontSize:'16px'}}>코스닥</span>}
           />
           <Tab
             disableRipple
             classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
-            label="ETN"
+            label={<span style={{fontSize:'16px'}}>ETF</span>}
+          />
+
+          <Tab
+            disableRipple
+            classes={{ root: classes.tabRoot, selected: classes.tabSelected }}
+            label={<span style={{fontSize:'16px'}}>ETN</span>}
           />
         </Tabs>
 
+        
         {value === 0 && (
-          <Typography className={classes.typography}>
-            Ant Design UI 1
-          </Typography>
+          <RankTable
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={onRequestSort}
+            data={data}
+            filterText={filterText}
+            onHandleClick={onHandleClick}
+            stringSort={stringSort}
+            isselected={isselected}
+            selectedCheckbox={selectedCheckbox}
+            onHandleChecked={onHandleChecked}
+          />
+        
         )}
         {value === 1 && (
           <Typography className={classes.typography}>
-            Ant Design UI 22
+          <span className="test">서비스 준비중입니다.</span>
           </Typography>
         )}
         {value === 2 && (
           <Typography className={classes.typography}>
-            Ant Design UI 333
+          <span className="test">서비스 준비중입니다.</span>
           </Typography>
         )}
         {value === 3 && (
           <Typography className={classes.typography}>
-            Ant Design UI 4444
+          <span className="test">서비스 준비중입니다.</span>
           </Typography>
         )}
         {value === 4 && (
           <Typography className={classes.typography}>
-            Ant Design UI 55555
+          <span className="test">서비스 준비중입니다.</span>
           </Typography>
         )}
       </div>

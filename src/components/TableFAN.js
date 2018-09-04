@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import TableCell from "@material-ui/core/TableCell";
@@ -6,38 +6,26 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import Checkbox from "@material-ui/core/Checkbox";
+import TableBody from "@material-ui/core/TableBody"; 
 
 
 const CustomTableCell = withStyles(theme => ({
   head: {
     // backgroundColor: '#2d74de',
-    color: theme.palette.common.black,
-    fontSize: 13,
-
+    // color: theme.palette.common.black,
+    fontSize: 14, 
+    paddingLeft:30,
   },
-  // body: {
-  //   fontSize: 20,
-  // },
+  body: {
+    fontSize: 14,
+    paddingLeft:30,
+    color: '#848484',
+    paddingTop:5,
+    paddingBottom:5
+  },
 }))(TableCell);
 
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-  row: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
-    },
-  },
-});
+ 
 
 
 
@@ -62,33 +50,29 @@ class TableTop extends React.Component {
     const isselected = this.props.isselected;
     const onhandleClick = this.props.onHandleClick;
 
+
     return (
-      <Table style={{width:'800px'}} >
+
+      <Table >
 
         <colgroup>
-
-          <col style={{width:'2.5%'}}/>
-          <col style={{width:'15%'}}/>
-          <col style={{width:'2.5%'}}/>
-          <col style={{width:'30%'}}/>
-          <col style={{width:'20%'}}/>
-          <col style={{width:'20%'}}/>
           <col style={{width:'10%'}}/>
+          <col style={{width:'10%'}}/>
+          <col style={{width:'41%'}}/>
+          <col style={{width:'13%'}}/>
+          <col style={{width:'16%'}}/>
+          <col style={{width:'10%'}}/>
+      </colgroup>
 
-        </colgroup>
-
-        <TableHead >
-
-          <TableRow >
-          
-            <CustomTableCell/>
-            <CustomTableCell>순위</CustomTableCell>
-            <CustomTableCell/>
+        <TableHead>
+          <TableRow>
+            <CustomTableCell padding="none">순위</CustomTableCell>
+            <CustomTableCell padding="none"/>
 
             {columnData.map((column,index) => {
               
               return (
-                <CustomTableCell
+                <CustomTableCell padding="none"
                   key={column.id}
                   sortDirection={orderBy === column.id ? order : false}
                   // {num=num+1}
@@ -104,15 +88,16 @@ class TableTop extends React.Component {
               );
             }, this)}
 
-            <CustomTableCell>투자</CustomTableCell>
+            <CustomTableCell padding="none">투자</CustomTableCell>
 
           </TableRow>
         </TableHead>
 
         <TableBody>
+
           {data
             .sort(sorting(order, orderBy))
-            .slice(0,20)
+            .slice(0,100)
             .map((product, index) => {
             // indexOf가 -1이라는것은, 문자열이 존재하지 않는다.
             if (product.name.indexOf(filterText) === -1) {
@@ -122,26 +107,27 @@ class TableTop extends React.Component {
             const isSelected = isselected(product.code);
             
             return (
+
+
               <TableRow
                 key={index + 1}
                 onClick={event => onhandleClick(event, product.code)}
-                hover
-                role="checkbox"
+                hover 
                 selected={isSelected}
+                
               >
-                <TableCell padding="checkbox">
-                  <Checkbox checked={isSelected} />
-                </TableCell>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>-</TableCell>
-                <TableCell>
-                  {product.name}
-                  <br />
-                  {product.code}
-                </TableCell>
-              <TableCell>{Number(product.price).toLocaleString('en')}</TableCell>
-                <TableCell>{product.score}</TableCell>
-                <TableCell>
+ 
+                <CustomTableCell padding="none" style={{fontSize:'15px'}}>{index + 1}</CustomTableCell>
+                <CustomTableCell padding="none">-</CustomTableCell>
+                <CustomTableCell padding="none">
+                <a href={'https://finance.naver.com/item/main.nhn?code='+product.code} style={{color:'black', textDecoration:'none'}}>{product.name}</a>
+                   <br />
+                  
+                  <span style={{color:'#A4A4A4'}}>{product.code} </span>
+                </CustomTableCell>
+              <CustomTableCell padding="none">{Number(product.price).toLocaleString('en')}</CustomTableCell>
+                <CustomTableCell padding="none">{product.score}</CustomTableCell>
+                <CustomTableCell padding="none">
                   {product.status === "good"
                     ? "좋음"
                     : product.status === "normal"
@@ -149,7 +135,7 @@ class TableTop extends React.Component {
                       : product.status === "bad"
                         ? "나쁨"
                         : "위험"}
-                </TableCell>
+                </CustomTableCell>
               </TableRow>
             );
           })}

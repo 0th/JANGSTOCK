@@ -7,14 +7,56 @@ body{
   text-align: center;
 }
 
-.body_contents {
+.contents {
   background-color:white;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 1000px;
-  left: 25%;
+  width: 700px;
+  left:27%;
   position: absolute; 
   zIndex: 100;
 } 
+
+.contents_top{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+
+  width: 100%;
+  background-color: #2b5dc4;
+
+}
+
+.titlebar{
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 0px;
+  color: white;
+  font-size: 42px;
+  /* background-color: red; */
+}
+
+
+.searchbar{
+  padding-left: 20px;
+  padding-bottom: 30px;
+  width: 100px;
+}
+
+.cellStyle{
+  font-size: 18px;
+  color: red;
+
+}
+
+.test{
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+

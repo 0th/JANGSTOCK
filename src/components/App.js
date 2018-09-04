@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import SearchBar from "./SearchFAN";
 import "./App.css";
 import { withStyles } from "@material-ui/core/styles";
@@ -6,7 +6,6 @@ import { DB_CONFIG } from "../db/config";
 import firebase from "firebase";
 import TitleBar from "./TitleFAN";
 import Tabs from "./TabFAN";
-import RankTable from "./TableFAN";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -142,30 +141,19 @@ class App extends Component {
       );
     } else {
       return (
-        <div className="body_contents">
-          <TitleBar data={data} />
-          <SearchBar
-            filterText={this.state.filterText}
-            onFilterTextChange={this.handleFilterTextChange}
-          />
+        <div className="contents">
+          <div className="contents_top">
+            <TitleBar data={data} />
+
+            <SearchBar
+              filterText={this.state.filterText}
+              onFilterTextChange={this.handleFilterTextChange}
+            />
+          </div>
 
           <Tabs
             value={value}
             onHandleChange={this.handleChange}
-            
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={this.handleRequestSort}
-            data={data}
-            filterText={filterText}
-            onHandleClick={this.handleClick}
-            stringSort={this.getSorting}
-            isselected={this.isSelected}
-            selectedCheckbox={this.selected}
-            onHandleChecked={this.handleChecked}
-          />
-
-          <RankTable
             order={order}
             orderBy={orderBy}
             onRequestSort={this.handleRequestSort}

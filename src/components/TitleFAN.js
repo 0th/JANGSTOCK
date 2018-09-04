@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component  } from "react";
 import { withStyles } from '@material-ui/core/styles';
 
 
@@ -36,16 +36,12 @@ class TitleBar extends Component {
   
   render() {
 
-    const { data } = this.props;
-    const {classes} = this.props;
-
+    const { data } = this.props; 
     return (
-      <div className={classes.titleBar}>
-        <h1>ZUFAN</h1>
-        <h4>주판을 두드리고 주식투자</h4>
-        <br/>
-        <h6>Update: {data[0].time}</h6>
-      </div>
+      <span className="titlebar">
+        ZUFAN
+        
+      </span>
     );
   }
 }
